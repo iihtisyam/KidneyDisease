@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Register</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="./plugins/jquery-steps/css/jquery.steps.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <form action="#" id="step-form-horizontal" class="step-form-horizontal">
+                            <div>
+                                <h2>Sign Up Your Account</h2>
+                                <h4>Account Details</h4>
+                                <section>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="firstName">First Name</label>
+                                                <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="lastName">Last Name</label>
+                                                <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="username">Username</label>
+                                                <input type="text" id="username" class="form-control" placeholder="Username" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" id="email" class="form-control" placeholder="Email" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input type="password" id="Password" class="form-control" placeholder="Password" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="confirmPassword">Confirm Password</label>
+                                                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="ICNumber">IC Number</label>
+                                                <input type="text" id="ICNumber" class="form-control" placeholder="IC Number" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="dateOfBirth">Date of Birth</label>
+                                                <input type="date" id="dateOfBirth" class="form-control" placeholder="Date of Birth" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                              <label>Gender</label>
+                                              <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
+                                                <label class="form-check-label" for="male">Male</label>
+                                              </div>
+                                              <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>
+                                                <label class="form-check-label" for="female">Female</label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="contact">Contact</label>
+                                                <input type="text" id="contact" class="form-control" placeholder="Contact" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <h4>Your Address</h4>
+                                <section>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="address">Address</label>
+                                                <input type="text" id="address" class="form-control" placeholder="Address" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="city">City</label>
+                                                <input type="text" id="city" class="form-control" placeholder="City" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="zip">ZIP Code</label>
+                                                <input type="text" id="zip" class="form-control" placeholder="ZIP Code" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <h4>Medication Details</h4>
+                                <section>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="medicineAllergy">Do you have any allerygy to medicine?</label>
+                                                <input class="form-control" type="text" id="medicineAllergy" placeholder="Medicine Allergy">
+                                            </div>
+                                    </div>
+                                </section>
+                                <h4>Confirmation</h4>
+                                <section>
+                                    <div class="row h-100">
+                                        <div class="col-12 h-100 d-flex flex-column justify-content-center align-items-center">
+                                            <button type="submit" id="submit-button" class="btn btn-primary">Submit</button>
+                                            <div id="success-message" class="mt-3 d-none">
+                                                <h2>You have submitted form successfully!</h2>
+                                                <p>Thank you very much for your information. We will proceed accordingly.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- #/ container -->
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 100px;">
+                <div>
+                    <p class="mt-5 login-form__footer">Have an account? <a href="page-login.html" class="text-primary">Sign Up </a> now</p>
+                </div>
+            </div>
+        </div>
+
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+        <!--**********************************
+            Footer start
+        ********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+    <script>
+      // Get reference to the radio buttons
+const maleRadio = document.getElementById('male');
+const femaleRadio = document.getElementById('female');
+let gender;
+
+// Add event listener for change event
+maleRadio.addEventListener('change', function() {
+    if (maleRadio.checked) {
+        // If male radio button is checked, retrieve its value
+        gender = maleRadio.value;
+        console.log('Selected gender:', gender);
+    }
+});
+
+femaleRadio.addEventListener('change', function() {
+    if (femaleRadio.checked) {
+        // If female radio button is checked, retrieve its value
+        gender = femaleRadio.value;
+        console.log('Selected gender:', gender);
+    }
+});
+
+document.getElementById('submit-button').addEventListener('click', function() {
+    // Get values of input fields
+    const username = document.getElementById('username').value;
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const ICNumber = document.getElementById('ICNumber').value;
+    const dateOfBirth = document.getElementById('dateOfBirth').value;
+    const contact = document.getElementById('contact').value;
+    const address = document.getElementById('address').value + document.getElementById('city').value + document.getElementById('zip').value;
+    const medicineAllergy = document.getElementById('medicineAllergy').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('Password').value; // Note: Password ID corrected
+
+    // Construct form data object
+    const formData = {
+        username: username,
+        firstName: firstName,
+        lastName: lastName,
+        ICNumber: ICNumber,
+        dateOfBirth: dateOfBirth,
+        gender: gender,
+        contact: contact,
+        address: address,
+        medicineAllergy: medicineAllergy,
+        email: email,
+        password: password
+    };
+
+    // Hide the submit button
+    this.style.display = 'none';
+
+    // Show the success message
+    document.getElementById('success-message').classList.remove('d-none');
+
+    // Send form data to server using HTTP POST
+    fetch('php/register.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Response:', data);
+        if (data.error === 'Successfully registered') {
+            // Redirect the user to the login page or any other page
+            window.location.href = 'page-login.html';
+        } else {
+            // Display an error message
+            console.error(data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error registering user:', error);
+    });
+});
+
+    </script>
+</body>
+</html>
+

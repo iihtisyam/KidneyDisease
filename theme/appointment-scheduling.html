@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Care Clinic - Appointment Scheduling</title>
+    <link rel="stylesheet" href="css/appointment-scheduling.css">
+</head>
+
+<body>
+    <header>
+        <h1>Kidney Care Clinic</h1>
+        <nav>
+            <ul>
+                <li><a href="staff-dashboard.html">Home</a></li>
+                <li><a href="list-patients(staff).html">Patient Management</a></li>
+                <li><a href="appointment-scheduling.html">Appointment Scheduling</a></li>
+                <li><a href="report-generation.html">Report Generation</a></li>
+                <li><a href="page-login.html" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="appointments">
+            <h2>Unassigned Appointments</h2>
+            <div id="appointmentList" class="appointment-list"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Kidney Care Clinic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchAppointments();
+        });
+
+        function fetchAppointments() {
+            fetch('php/scheduling-appointment.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        displayAppointments(data);
+                    } else {
+                        console.error('Expected an array but got:', data);
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        function displayAppointments(appointments) {
+            const appointmentList = document.getElementById('appointmentList');
+            appointmentList.innerHTML = '';
+            appointments.forEach(appointment => {
+                const appointmentBox = document.createElement('div');
+                appointmentBox.className = 'appointment-box';
+                appointmentBox.innerHTML = `
+                    <h3>${appointment.firstName} ${appointment.lastName}</h3>
+                    <p><strong>IC Number:</strong> ${appointment.ICNumber}</p>
+                    <p><strong>Date:</strong> ${appointment.date}</p>
+                    <p><strong>Start Time:</strong> ${appointment.startTime}</p>
+                    <p><strong>End Time:</strong> ${appointment.endTime}</p>
+                    <p><strong>Description:</strong> ${appointment.details}</p>
+                    <button class="assign-doctor-btn" data-appointment-id="${appointment.appointmentID}">Assign a Doctor</button>
+                    <div class="assign-doctor-form" id="form-${appointment.appointmentID}" style="display: none;"></div>
+                `;
+
+                // Add click event listener to the "Assign a Doctor" button
+                appointmentBox.querySelector('.assign-doctor-btn').addEventListener('click', () => {
+                    fetchAvailableDoctors(appointment);
+                });
+
+                appointmentList.appendChild(appointmentBox);
+            });
+        }
+
+    function fetchAvailableDoctors(appointment) {
+        fetch('php/get-available-doctors.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                date: appointment.date,
+                startTime: appointment.startTime
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => { throw new Error(error.error || 'Unknown error'); });
+                }
+                return response.json();
+            })
+            .then(data => {
+                displayDoctorForm(appointment.appointmentID, data);
+            })
+            .catch(error => console.error('Error fetching doctors:', error));
+    }
+
+    function displayDoctorForm(appointmentId, doctors) {
+            const formContainer = document.getElementById(`form-${appointmentId}`);
+            formContainer.innerHTML = `
+        <h4>Assign a Doctor</h4>
+        <form id="assignDoctorForm-${appointmentId}">
+            <select id="doctorSelect-${appointmentId}">
+                ${doctors.map(doctor => `<option value="${doctor.doctorID}">${doctor.firstName} ${doctor.lastName}</option>`).join('')}
+            </select>
+            <button type="button" onclick="assignDoctor(${appointmentId})">Assign</button>
+        </form>
+    `;
+            formContainer.style.display = 'block';
+        }
+
+        function assignDoctor(appointmentId) {
+            const doctorId = document.getElementById(`doctorSelect-${appointmentId}`).value;
+            const staffData = JSON.parse(localStorage.getItem('staffData'));
+            const staffId = staffData.staffID;
+            const data = {
+                appointmentId: appointmentId,
+                doctorId: doctorId,
+                staffId: staffId
+            };
+
+            fetch('php/assign-doctor.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle success response
+                    console.log('Doctor assigned successfully:', data);
+                    alert('Doctor assigned successfully.');
+                    document.getElementById(`form-${appointmentId}`).style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error assigning doctor:', error);
+                    alert('An error occurred. Please try again.');
+                });
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+            localStorage.clear();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Up an Appointment - Kidney Care Clinic</title>
+    <link rel="stylesheet" href="css/patient-dashboard">
+   
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Kidney Care Clinic</h1>
+        </div>
+        <br>
+        <nav>
+            <ul>
+                <li><a href="patient-dashboard.html">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#articles">Articles</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button id="logoutButton" class="logout-button">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="appointment" class="appointment">
+        <h2>Set Up an Appointment</h2>
+        <form id="appointment-form">
+            <label for="date">Choose a date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Choose a time slot:</label>
+            <select id="time" name="time" required>
+                <option value="08:00">08:00 AM - 09:00 AM</option>
+                <option value="09:00">09:00 AM - 10:00 AM</option>
+                <option value="10:00">10:00 AM - 11:00 AM</option>
+                <option value="11:00">11:00 AM - 12:00 PM</option>
+                <option value="12:00">12:00 PM - 01:00 PM</option>
+                <option value="13:00">01:00 PM - 02:00 PM</option>
+                <option value="14:00">02:00 PM - 03:00 PM</option>
+                <option value="15:00">03:00 PM - 04:00 PM</option>
+                <option value="16:00">04:00 PM - 05:00 PM</option>
+                <option value="17:00">05:00 PM - 06:00 PM</option>
+            </select>
+
+            <label for="appointment-type">Type of appointment:</label>
+            <select id="appointment-type" name="appointment-type" required>
+                <option value="kidney-screening">Kidney Screening</option>
+                <option value="dialysis">Dialysis</option>
+                <option value="consult-session">Consult Session</option>
+            </select>
+
+            <button type="submit" class="btn appointment-form__btn submit w-100" id="submitBtn">Submit</button>
+        </form>
+
+        <div class="success-message" id="success-message">
+            <p>Appointment successfully registered.</p>
+            <button class="btn" id="see-appointments-btn">See your upcoming appointments</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Kidney Care Clinic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const appointmentForm = document.getElementById('appointment-form');
+            const successMessage = document.getElementById('success-message');
+            const seeAppointmentsBtn = document.getElementById('see-appointments-btn');
+
+            appointmentForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                console.log("Form submission initiated.");
+
+                const date = document.getElementById('date').value;
+                const startTime = document.getElementById('time').value;
+                const endTime = getEndTime(startTime);
+                const details = document.getElementById('appointment-type').value;
+                const patientData = JSON.parse(localStorage.getItem('patientData'));
+                const patientID = patientData.patientID;
+
+                console.log("Patient ID:", patientID);
+
+                console.log("Date:", date);
+                console.log("Start Time:", startTime);
+                console.log("End Time:", endTime);
+                console.log("Details:", details);
+                console.log("Patient Data:", patientData);
+
+                if (patientID) {
+                    saveAppointment(date, startTime, endTime, details, patientID)
+                        .then(response => {
+                            console.log("Server response:", response);
+                            if (response.error === "Appointment successfully registered") {
+                                successMessage.style.display = 'block';
+                                appointmentForm.style.display = 'none';
+                            } else {
+                                alert("Error: " + response.error);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Failed to save appointment.');
+                        });
+                } else {
+                    alert('No patient data found. Please log in again.');
+                }
+            });
+
+            seeAppointmentsBtn.addEventListener('click', function () {
+                window.location.href = 'upcoming-appointments.html';
+            });
+
+            function getEndTime(startTime) {
+                const [hours, minutes] = startTime.split(':');
+                const endHours = parseInt(hours) + 1;
+                return `${endHours.toString().padStart(2, '0')}:${minutes}`;
+            }
+
+            async function saveAppointment(date, startTime, endTime, details, patientID) {
+                const data = { date, startTime, endTime, details, patientID };
+                console.log("Sending data to server:", data);
+
+                try {
+                    const response = await fetch('php/save-appointment.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const jsonResponse = await response.json();
+                    console.log("Received response from server:", jsonResponse);
+                    return jsonResponse;
+                } catch (error) {
+                    console.error('Error:', error);
+                    throw error;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header .logo h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li button.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: underline;
+    padding: 0;
+}
+
+nav ul li button.logout-button:hover {
+    text-decoration: none;
+}
+
+section {
+    padding: 20px;
+    text-align: center;
+}
+
+.welcome {
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.welcome-image img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.welcome-content {
+    max-width: 600px;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.welcome-content h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.welcome-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.welcome-content button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.welcome-content button:hover {
+    background-color: #45a049;
+}
+
+.services {
+    background-color: #ffffff;
+}
+
+.service-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.service {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.articles {
+    background-color: #f9f9f9;
+}
+
+.articles .article {
+    margin: 20px 0;
+}
+
+.articles .article h3 a {
+    text-decoration: none;
+    color: #4CAF50;
+}
+
+.articles .article h3 a:hover {
+    text-decoration: underline;
+}
+
+.about {
+    background-color: #f2f2f2;
+    padding: 50px 20px;
+}
+
+.contact {
+    background-color: #ffffff;
+}
+
+.appointment {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+}
+
+.appointment h2 {
+    margin-bottom: 20px;
+}
+
+.appointment form {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.appointment label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.appointment input,
+.appointment select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.appointment button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.appointment button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.appointment-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.appointment-item h2 {
+    margin-top: 0;
+}
+
+.appointment-item p {
+    margin: 5px 0;
+}
+
+.appointment-item {
+    margin-bottom: 20px;
+  }
+  
+  .appointment-box {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .appointment-box h2 {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .appointment-box p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .appointment-box .icon {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #666;
+  }
+
+  .medical-test-item {
+    margin-bottom: 20px;
+  }
+  
+  .medical-test-box {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .medical-test-box h2 {
+    margin-top: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .medical-test-box p {
+    margin: 10px 0;
+    font-size: 20px;
+    color: #000000;
+  }
+
+  .success-message {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+}
+.success-message p {
+    font-size: 1.2em;
+    color: green;
+}
+.success-message .btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+

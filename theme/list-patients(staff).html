@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Care Clinic - Patient List</title>
+    <link rel="stylesheet" href="css/doctor-dashboard.css">
+</head>
+<body>
+    <header>
+        <h1>Kidney Care Clinic</h1>
+        <nav>
+            <ul>
+                <li><a href="staff-dashboard.html">Home</a></li>
+                <li><a href="list-patients(staff).html">Patient Management</a></li>
+                <li><a href="appointment-scheduling.html">Appointment Scheduling</a></li>
+                <li><a href="report-generation.html">Report Generation</a></li>
+                <li><a href="page-login.html" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="patient-search">
+            <input type="text" id="searchICNumber" placeholder="Enter ICNumber to search">
+            <button onclick="searchPatient()">Search</button>
+        </section>
+        
+        <section id="patient-list">
+            <h2>All Patients</h2>
+            <table id="patientTable">
+                <thead>
+                    <tr>
+                        <th>Patient ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>ICNumber</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Phone Number</th>
+                        <th>Address</th>
+                        <th>Medicine Allergy</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Patient data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </section>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                fetchPatients();
+            });
+    
+            async function fetchPatients() {
+                try {
+                    const response = await fetch('php/SearchPatients.php', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+    
+                    const patients = await response.json();
+    
+                    if (patients.error) {
+                        console.error('Error:', patients.error);
+                    } else {
+                        const tableBody = document.getElementById('patientTable').getElementsByTagName('tbody')[0];
+                        
+                        // Clear the table body before inserting new rows
+                        tableBody.innerHTML = '';
+    
+                        patients.forEach(patient => {
+                            const row = tableBody.insertRow();
+                            row.insertCell(0).textContent = patient.patientID;
+                            row.insertCell(1).textContent = patient.firstName;
+                            row.insertCell(2).textContent = patient.lastName;
+                            row.insertCell(3).textContent = patient.ICNumber;
+                            row.insertCell(4).textContent = patient.dateOfBirth;
+                            row.insertCell(5).textContent = patient.gender;
+                            row.insertCell(6).textContent = patient.contact;
+                            row.insertCell(7).textContent = patient.address;
+                            row.insertCell(8).textContent = patient.medicineAllergy;
+                            row.insertCell(9).textContent = patient.email;
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error fetching patients:', error);
+                }
+            }
+    
+            async function searchPatient() {
+                const ICNumber = document.getElementById('searchICNumber').value;
+    
+                try {
+                    const response = await fetch('php/SearchPatients.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ICNumber: ICNumber })
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+    
+                    const patients = await response.json();
+    
+                    if (patients.error) {
+                        console.error('Error:', patients.error);
+                    } else {
+                        const tableBody = document.getElementById('patientTable').getElementsByTagName('tbody')[0];
+                        
+                        // Clear the table body before inserting new rows
+                        tableBody.innerHTML = '';
+    
+                        patients.forEach(patient => {
+                            const row = tableBody.insertRow();
+                            row.insertCell(0).textContent = patient.patientID;
+                            row.insertCell(1).textContent = patient.firstName;
+                            row.insertCell(2).textContent = patient.lastName;
+                            row.insertCell(3).textContent = patient.ICNumber;
+                            row.insertCell(4).textContent = patient.dateOfBirth;
+                            row.insertCell(5).textContent = patient.gender;
+                            row.insertCell(6).textContent = patient.contact;
+                            row.insertCell(7).textContent = patient.address;
+                            row.insertCell(8).textContent = patient.medicineAllergy;
+                            row.insertCell(9).textContent = patient.email;
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error searching patients:', error);
+                }
+            }
+        </script>
+</body>
+</html>

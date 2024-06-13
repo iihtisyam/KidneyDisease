@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="./plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="indexAdmin.html">
+                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">    
+            <div class="header-content clearfix">
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                <div class="header-left">
+                </div>
+                <div class="header-right">
+                    <ul>
+                        <li class="icons dropdown d-none d-md-flex">
+                            <a href="javascript:void(0)" class="log-user" data-toggle="dropdown">
+                                <span>English</span> <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
+                            </a>
+                            <div class="drop-down dropdown-language animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li><a href="javascript:void()">English</a></li>
+                                        <li><a href="javascript:void()">Dutch</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative" data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/1.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="icon-envelope-open"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill gradient-1">3</div>
+                                            </a>
+                                        </li>
+                                        <hr class="my-2">
+                                        <li>
+                                            <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
+                                        </li>
+                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+      <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">           
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-user menu-icon"></i><span class="nav-text">Patient</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./ListOfPatients.html">List Of Patients</a></li>
+                            <li><a href="./SearchPatients.html">Search Patient</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-stethoscope menu-icon"></i><span class="nav-text">Doctor</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./registerDoctorPage.html">Register Doctor</a></li>
+                            <li><a href="./ListOfDoctors.html">List of Doctor</a></li>
+                        </ul>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-stethoscope menu-icon"></i><span class="nav-text">Staff</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./registerStaff.html">Register Staff</a></li>
+                            <li><a href="./ListOfStaffs.html">List of Staff</a></li>
+                        </ul>
+                    </li>
+                  
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar endccc   
+        ***********************************-->
+
+
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Search Doctors</h5>
+                    <form class="row g-3 align-items-center">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control me-2" id="search" placeholder="Enter Doctor's Name">
+                                <button type="button" class="btn btn-primary" onclick="searchDoctors()">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Doctor List</h4>
+                            <div class="table-responsive">
+                                <table id="doctorTable" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-header">Doctor ID</th>
+                                            <th class="table-header">First Name</th>
+                                            <th class="table-header">Last Name</th>
+                                            <th class="table-header">Speciality</th>
+                                            <th class="table-header">Contact</th>
+                                            <th class="table-header">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="resultsBody">
+                                        <!-- Doctor list will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        
+        
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+    <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
+    
+  
+    <script>
+         // Function to fetch and display all doctors
+         function fetchAllDoctors() {
+            fetch('php/ListDoctors.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                populateTable(data);
+            })
+            .catch(error => {
+                console.error('Error fetching doctor data:', error);
+                alert('An error occurred while fetching the doctor list.');
+            });
+        }
+
+        // Function to populate the table with doctor data
+        function populateTable(data) {
+            const resultsBody = document.getElementById('resultsBody');
+            resultsBody.innerHTML = '';  // Clear previous results
+
+            data.forEach(doctor => {
+                const row = document.createElement('tr');
+                row.setAttribute('data-id', doctor.doctorID);  // Assuming each doctor has a unique 'id'
+                row.addEventListener('click', () => {
+                    // Store doctor details in localStorage as JSON
+                    localStorage.setItem('selectedDoctor', JSON.stringify(doctor));
+                    console.log('Doctor details stored in localStorage:', doctor);  // Add this line
+                    // Redirect to doctorDetails.html
+                    window.location.href = 'doctorDetails.html';
+                });
+
+                row.innerHTML = `
+                    <td>${doctor.doctorID}</td>
+                    <td>${doctor.firstName}</td>
+                    <td>${doctor.lastName}</td>
+                    <td>${doctor.speciality}</td>
+                    <td>${doctor.contact}</td>
+                    <td>${doctor.email}</td>
+                `;
+                resultsBody.appendChild(row);
+            });
+
+            document.getElementById('doctorTable').style.display = 'table';
+        }
+
+        // Fetch all doctors when the page loads
+        document.addEventListener('DOMContentLoaded', fetchAllDoctors);
+
+        // Function to search for doctors
+        function searchDoctors() {
+            const doctorName = document.getElementById('search').value;
+
+            if (!doctorName) {
+                alert('Please enter a doctor\'s name.');
+                return;
+            }
+
+            fetch('php/SearchDoctors.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: doctorName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                populateTable(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while searching for doctors.');
+            });
+        }
+
+        // Fetch all doctors when the page loads
+        document.addEventListener('DOMContentLoaded', fetchAllDoctors);
+    </script>
+    
+    <style>
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+            background-color: transparent;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            vertical-align: top;
+            border: 2px solid #dee2e6;
+            text-align: center;
+            cursor: pointer; /* Add cursor pointer for clickable rows */
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 3px solid #dee2e6;
+            background-color: #d1ecf1; /* Light blue color */
+        }
+
+        .table tbody + tbody {
+            border-top: 3px solid #dee2e6;
+        }
+
+        .table-bordered {
+            border: 2px solid #dee2e6;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 2px solid #dee2e6;
+        }
+
+        .table-bordered thead th,
+        .table-bordered thead td {
+            border-bottom-width: 3px;
+        }
+
+        .table-header {
+            font-weight: bold;
+        }
+    </style>                                                                                                                  
+
+</body>
+
+</html>

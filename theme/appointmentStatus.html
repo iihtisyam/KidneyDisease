@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Status</title>
+    <link rel="stylesheet" href="css/doctor-dashboard.css">
+</head>
+<body>
+    <header>
+        <h1>Kidney Care Clinic</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">CKD Prediction</a></li>
+                <li><a href="#">Patients List</a></li>
+                <li><a href="#">Appointments</a></li>
+                <li><button class="logout-button">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <header>
+            <h1>Appointment Details</h1>
+        </header>
+        
+        <div id="appointment-details-container">
+            <section id="appointment-details">
+                <h2>Appointment Information</h2>
+                <p>Appointment ID: <span id="appointmentID"></span></p>
+                <p>Patient Name: <span id="patientName"></span></p>
+                <p>Patient IC Number: <span id="patientICNumber"></span></p>
+                <p>Date: <span id="appointmentDate"></span></p>
+                <p>Time: <span id="appointmentTime"></span></p>
+                <button id="ckdPrediction">Make a Chronic Kidney Diseases Prediction</button>
+                <button id="verifyButton">Verify Appointment Done</button>
+            </section>
+        </div>
+    </div>
+    
+    <script>
+       document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const appointmentID = urlParams.get('appointmentID');
+
+            if (appointmentID) {
+                fetchAppointmentDetails(appointmentID);
+            }
+
+            // Move this inside the DOMContentLoaded event listener
+            document.getElementById('verifyButton').addEventListener('click', function () {
+                if (confirm('Are you sure you want to verify this appointment as done?')) {
+                    verifyAppointmentDone(appointmentID);
+                }
+            });
+
+            document.getElementById('ckdPrediction').addEventListener('click', function () {
+               const icNumber = document.getElementById('patientICNumber').textContent; // Get the ICNumber from appointment details
+               window.location.href = `ckdPrediction.html?icNumber=${icNumber}`; // Redirect to ckdPrediction.html with ICNumber as URL parameter
+           });
+
+        });
+
+        async function fetchAppointmentDetails(appointmentID) {
+            try {
+                const response = await fetch('php/GetAppointmentDetails.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ appointmentID: appointmentID })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const appointment = await response.json();
+
+                if (appointment.error) {
+                    console.error('Error:', appointment.error);
+                } else {
+                    document.getElementById('appointmentID').textContent = appointment.appointmentID;
+                    document.getElementById('patientName').textContent = `${appointment.firstName} ${appointment.lastName}`;
+                    document.getElementById('patientICNumber').textContent = appointment.ICNumber;
+                    document.getElementById('appointmentDate').textContent = appointment.date;
+                    document.getElementById('appointmentTime').textContent = appointment.time;
+                }
+            } catch (error) {
+                console.error('Error fetching appointment details:', error);
+            }
+
+         
+
+        }
+
+        async function verifyAppointmentDone(appointmentID) {
+            try {
+                const response = await fetch('php/UpdateAppointmentStatus.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ appointmentID: appointmentID })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.json();
+
+                if (result.error) {
+                    console.error('Error:', result.error);
+                } else {
+                    alert('Appointment status has been updated successfully.');
+                    window.location.href = 'doctor-dashboard.html'; // Redirect back to the dashboard
+                }
+            } catch (error) {
+                console.error('Error updating appointment status:', error);
+            }
+        }
+    </script>
+</body>
+</html>

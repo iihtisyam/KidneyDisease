@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Care Clinic - Doctor Dashboard</title>
+    <link rel="stylesheet" href="css/doctor-dashboard.css">
+</head>
+<body>
+    <header>
+        <h1>Kidney Care Clinic</h1>
+        <nav>
+            <ul>
+                <li><a href="doctor-dashboard.html">Home</a></li>
+                <li><a href="ckdPrediction.html">CKD Prediction</a></li>
+                <li><a href="doctor-dashboard.html#patients-list">Patients List</a></li>
+                <li><a href="doctor-dashboard.html#appointments">Appointments</a></li>
+                <li><button id="logoutButton" class="logout-button">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="welcome" class="welcome">
+        <div class="welcome-container">
+            <div class="welcome-image">
+                <img src="images/logo-compact.png" alt="Kidney Care Image">
+            </div>
+            <div class="welcome-content">
+                <h2>Welcome to Kidney Care Clinic</h2>
+                <p>Your health is our priority. We provide comprehensive care for all kidney-related issues.</p>
+                <p>Doctor Name: <span id="doctorName"></span></p>
+                <p>Email: <span id="doctorEmail"></span></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="patients-list">
+        <h2>Patients List</h2>
+        <table id="patientTable">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>IC Number</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Medicine Allergy</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Patient data will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+        <button id="viewMoreBtn">View More</button>
+    </section>
+
+    <section id="appointments">
+        <h2>Upcoming Appointments</h2>
+        <table id="appointmentTable">
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Patient Name</th>
+                    <th>Patient IC Number</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Description</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Appointment data will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- <footer>
+        <p>&copy; 2024 Kidney Care Clinic. All rights reserved.</p>
+    </footer> -->
+
+    <script>
+        async function fetchPatientData() {
+            try {
+                const response = await fetch('php/ListPatients.php');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+
+                const tableBody = document.getElementById('patientTable').getElementsByTagName('tbody')[0];
+                const maxRows = 3; // Limit the number of rows to display
+                const displayData = data.slice(0, maxRows);
+
+                if (Array.isArray(displayData) && displayData.length) {
+                    displayData.forEach(patient => {
+                        const row = tableBody.insertRow();
+                        const firstNameCell = row.insertCell(0);
+                        const lastNameCell = row.insertCell(1);
+                        const usernameCell = row.insertCell(2);
+                        const ICNumberCell = row.insertCell(3);
+                        const dateOfBirthCell = row.insertCell(4);
+                        const genderCell = row.insertCell(5);
+                        const contactCell = row.insertCell(6);
+                        const addressCell = row.insertCell(7);
+                        const medicineAllergyCell = row.insertCell(8);
+                        const emailCell = row.insertCell(9);
+
+                        firstNameCell.textContent = patient.firstName;
+                        lastNameCell.textContent = patient.lastName;
+                        usernameCell.textContent = patient.username;
+                        ICNumberCell.textContent = patient.ICNumber;
+                        dateOfBirthCell.textContent = patient.dateOfBirth;
+                        genderCell.textContent = patient.gender;
+                        contactCell.textContent = patient.contact;
+                        addressCell.textContent = patient.address;
+                        medicineAllergyCell.textContent = patient.medicineAllergy;
+                        emailCell.textContent = patient.email;
+
+                        // Add CSS classes for alignment
+                        firstNameCell.classList.add('table-cell');
+                        lastNameCell.classList.add('table-cell');
+                        usernameCell.classList.add('table-cell');
+                        ICNumberCell.classList.add('table-cell');
+                        dateOfBirthCell.classList.add('table-cell');
+                        genderCell.classList.add('table-cell');
+                        contactCell.classList.add('table-cell');
+                        addressCell.classList.add('table-cell');
+                        medicineAllergyCell.classList.add('table-cell');
+                        emailCell.classList.add('table-cell');
+                    });
+                } else {
+                    const row = tableBody.insertRow();
+                    const cell = row.insertCell(0);
+                    cell.colSpan = 10;
+                    cell.textContent = 'No patients found';
+                    cell.classList.add('table-cell');
+                }
+            } catch (error) {
+                console.error('Error fetching patient data:', error);
+                const tableBody = document.getElementById('patientTable').getElementsByTagName('tbody')[0];
+                const row = tableBody.insertRow();
+                const cell = row.insertCell(0);
+                cell.colSpan = 10;
+                cell.textContent = 'Error fetching patient data';
+                cell.classList.add('table-cell');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+        // Fetch doctor data from local storage
+        const doctorData = JSON.parse(localStorage.getItem('doctorData'));
+
+        if (doctorData) {
+            document.getElementById('doctorName').innerText = doctorData.firstName + " " + doctorData.lastName;
+            document.getElementById('doctorEmail').innerText = doctorData.email;
+
+            fetchAppointments(doctorData.doctorID); // Fetch appointments using doctorID
+        } else {
+            console.error('No doctor data found in local storage.');
+        }
+    });
+
+    async function fetchAppointments(doctorID) {
+    try {
+        const response = await fetch('php/ListAppointments.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ doctorID: doctorID })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const appointments = await response.json();
+
+        if (appointments.error) {
+            console.error('Error:', appointments.error);
+        } else {
+            const tableBody = document.getElementById('appointmentTable').getElementsByTagName('tbody')[0];
+
+            // Clear the table body before inserting new rows
+            tableBody.innerHTML = '';
+
+            if (appointments.length === 0) {
+                // If no appointments found, display a message
+                const row = tableBody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 7; // Span across all columns
+                cell.textContent = 'There are no appointments recorded yet.';
+            } else {
+                appointments.forEach(appointment => {
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = appointment.appointmentID;
+                    row.insertCell(1).textContent = `${appointment.firstName} ${appointment.lastName}`;
+                    row.insertCell(2).textContent = appointment.ICNumber;
+                    row.insertCell(3).textContent = appointment.date;
+                    row.insertCell(4).textContent = appointment.startTime + ' - ' + appointment.endTime;
+                    row.insertCell(5).textContent = appointment.details;
+                    row.insertCell(6).innerHTML = `<a href="appointmentStatus.html?appointmentID=${appointment.appointmentID}">View Details</a>`;
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching appointments:', error);
+    }
+}
+
+        document.getElementById('viewMoreBtn').addEventListener('click', function() {
+            window.location.href = 'list-patients.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch doctor data from local storage
+            const doctorData = JSON.parse(localStorage.getItem('doctorData'));
+
+            if (doctorData) {
+                document.getElementById('doctorName').innerText = doctorData.firstName + " " + doctorData.lastName;
+                document.getElementById('doctorEmail').innerText = doctorData.email;
+
+                // Fetch appointments for the logged-in doctor
+                fetchAppointments(doctorData.doctorID);
+            } else {
+                console.error('No doctor data found in local storage.');
+            }
+
+            // Fetch patient data
+            fetchPatientData();
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            // Perform logout operations, such as clearing tokens or session storage
+            alert('Logging out...');
+            window.location.href = 'page-login.html'; // Redirect to the login page or home page
+        });
+    </script>
+</body>
+</html>

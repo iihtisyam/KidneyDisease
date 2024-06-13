@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="./plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="indexAdmin.html">
+                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+  
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">    
+            <div class="header-content clearfix">
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                <div class="header-left">
+                </div>
+                <div class="header-right">
+                    <ul>
+                        <li class="icons dropdown d-none d-md-flex">
+                            <a href="javascript:void(0)" class="log-user" data-toggle="dropdown">
+                                <span>English</span> <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
+                            </a>
+                            <div class="drop-down dropdown-language animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li><a href="javascript:void()">English</a></li>
+                                        <li><a href="javascript:void()">Dutch</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative" data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/1.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="icon-envelope-open"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill gradient-1">3</div>
+                                            </a>
+                                        </li>
+                                        <hr class="my-2">
+                                        <li>
+                                            <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
+                                        </li>
+                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************--> 
+        
+       <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">           
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-user menu-icon"></i><span class="nav-text">Patient</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./ListOfPatients.html">List Of Patients</a></li>
+                            <li><a href="./SearchPatients.html">Search Patient</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-stethoscope menu-icon"></i><span class="nav-text">Doctor</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./registerDoctorPage.html">Register Doctor</a></li>
+                            <li><a href="./ListOfDoctors.html">List of Doctor</a></li>
+                        </ul>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-stethoscope menu-icon"></i><span class="nav-text">Staff</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./registerStaff.html">Register Staff</a></li>
+                            <li><a href="./ListOfStaffs.html">List of Staff</a></li>
+                        </ul>
+                    </li>
+                  
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar endccc   
+        ***********************************-->
+
+
+      <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">List of Patients</h4>
+                            <div class="table-responsive">
+                                <table id="patientTable" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-header">First Name</th>
+                                            <th class="table-header">Last Name</th>
+                                            <th class="table-header">Username</th>
+                                            <th class="table-header">IC Number</th>
+                                            <th class="table-header">Date of Birth</th>
+                                            <th class="table-header">Gender</th>
+                                            <th class="table-header">Contact</th>
+                                            <th class="table-header">Address</th>
+                                            <th class="table-header">Medicine Allergy</th>
+                                            <th class="table-header">Email</th>
+                                            <!-- Add more columns as needed -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        
+        
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+    <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
+    <script>
+        async function fetchPatientData() {
+            try {
+                const response = await fetch('php/ListPatients.php');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+    
+                const tableBody = document.getElementById('patientTable').getElementsByTagName('tbody')[0];
+    
+                if (Array.isArray(data) && data.length) {
+                    data.forEach(patient => {
+                        const row = tableBody.insertRow();
+                        const firstNameCell = row.insertCell(0);
+                        const lastNameCell = row.insertCell(1);
+                        const usernameCell = row.insertCell(2);
+                        const ICNumberCell = row.insertCell(3);
+                        const dateOfBirthCell = row.insertCell(4);
+                        const genderCell = row.insertCell(5);
+                        const contactCell = row.insertCell(6);
+                        const addressCell = row.insertCell(7);
+                        const medicineAllergyCell = row.insertCell(8);
+                        const emailCell = row.insertCell(9);
+    
+                        firstNameCell.textContent = patient.firstName;
+                        lastNameCell.textContent = patient.lastName;
+                        usernameCell.textContent = patient.username;
+                        ICNumberCell.textContent = patient.ICNumber;
+                        dateOfBirthCell.textContent = patient.dateOfBirth;
+                        genderCell.textContent = patient.gender;
+                        contactCell.textContent = patient.contact;
+                        addressCell.textContent = patient.address;
+                        medicineAllergyCell.textContent = patient.medicineAllergy;
+                        emailCell.textContent = patient.email;
+    
+                        // Add CSS classes for alignment
+                        firstNameCell.classList.add('table-cell');
+                        lastNameCell.classList.add('table-cell');
+                        usernameCell.classList.add('table-cell');
+                        ICNumberCell.classList.add('table-cell');
+                        dateOfBirthCell.classList.add('table-cell');
+                        genderCell.classList.add('table-cell');
+                        contactCell.classList.add('table-cell');
+                        addressCell.classList.add('table-cell');
+                        medicineAllergyCell.classList.add('table-cell');
+                        emailCell.classList.add('table-cell');
+                    });
+                } else {
+                    const row = tableBody.insertRow();
+                    const cell = row.insertCell(0);
+                    cell.colSpan = 10;
+                    cell.textContent = 'No patients found';
+                    cell.classList.add('table-cell');
+                }
+            } catch (error) {
+                console.error('Error fetching patient data:', error);
+                const tableBody = document.getElementById('patientTable').getElementsByTagName('tbody')[0];
+                const row = tableBody.insertRow();
+                const cell = row.insertCell(0);
+                cell.colSpan = 10;
+                cell.textContent = 'Error fetching patient data';
+                cell.classList.add('table-cell');
+            }
+        }
+    
+        fetchPatientData();
+    </script>
+    
+    <style>
+        .table {
+             width: 100%;
+             margin-bottom: 1rem;
+             color: #212529;
+             background-color: transparent;
+             border-collapse: collapse;
+         }
+
+        .table th,
+        .table td {
+             padding: 1rem;
+             vertical-align: top;
+             border: 2px solid #dee2e6;
+             text-align: center;
+         }
+
+        .table thead th {
+             vertical-align: bottom;
+             border-bottom: 3px solid #dee2e6;
+             background-color: #d1ecf1; /* Light blue color */
+         }
+
+        .table tbody + tbody {
+             border-top: 3px solid #dee2e6;
+         }
+
+        .table-bordered {
+             border: 2px solid #dee2e6;
+         }
+
+        .table-bordered th,
+        .table-bordered td {
+             border: 2px solid #dee2e6;
+         }
+
+        .table-bordered thead th,
+        .table-bordered thead td {
+             border-bottom-width: 3px;
+         }
+
+        .table-header {
+             font-weight: bold;
+         }
+     </style>
+                                                                                                                                                         
+                                                                                                                                                         
+
+</body>
+
+</html>

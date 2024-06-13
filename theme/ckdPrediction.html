@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Care Clinic - CKD Prediction</title>
+    <link rel="stylesheet" href="css/ckdPrediction.css">
+</head>
+<body>
+    <header>
+        <h1>CKD Prediction</h1>
+        <nav>
+            <ul>
+                <li><a href="doctor-dashboard.html">Home</a></li>
+                <li><a href="ckdPrediction.html">CKD Prediction</a></li>
+                <li><a href="doctor-dashboard.html#patients-list">Patients List</a></li>
+                <li><a href="doctor-dashboard.html#appointments">Appointments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="content-body">
+            <div class="container">
+                <div>
+                    <h2>CKD Prediction Form</h2>
+                    <form id="ckdForm">
+                        <div class="form-group">
+                            <label for="icNumber">IC Number:</label>
+                            <input type="text" id="icNumber" name="icNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="specificGravity">Specific Gravity:</label>
+                            <input type="number" step="0.001" id="specificGravity" name="specificGravity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="albumin">Albumin:</label>
+                            <input type="number" id="albumin" name="albumin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serumCreatinine">Serum Creatinine:</label>
+                            <input type="number" step="0.01" id="serumCreatinine" name="serumCreatinine" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hemoglobin">Hemoglobin:</label>
+                            <input type="number" id="hemoglobin" name="hemoglobin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="packedCellVolume">Packed Cell Volume:</label>
+                            <input type="number" id="packedCellVolume" name="packedCellVolume" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whiteBloodCellCount">White Blood Cell Count:</label>
+                            <input type="number" id="whiteBloodCellCount" name="whiteBloodCellCount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="redBloodCellCount">Red Blood Cell Count:</label>
+                            <input type="number" id="redBloodCellCount" name="redBloodCellCount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hypertension">Hypertension:</label>
+                            <select id="hypertension" name="hypertension" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="predictCKD()">Predict</button>
+                    </form>
+                </div>
+                <div id="result" style="font-size: 20px; padding: 10px;"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Kidney Care Clinic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function predictCKD() {
+            const icNumber = document.getElementById('icNumber').value;
+            const specificGravity = document.getElementById('specificGravity').value;
+            const albumin = document.getElementById('albumin').value;
+            const serumCreatinine = document.getElementById('serumCreatinine').value;
+            const hemoglobin = document.getElementById('hemoglobin').value;
+            const packedCellVolume = document.getElementById('packedCellVolume').value;
+            const whiteBloodCellCount = document.getElementById('whiteBloodCellCount').value;
+            const redBloodCells = document.getElementById('redBloodCellCount').value;
+            const hypertension = document.getElementById('hypertension').value;
+
+            const features = [
+                parseFloat(specificGravity),
+                parseFloat(albumin),
+                parseFloat(serumCreatinine),
+                parseFloat(hemoglobin),
+                parseFloat(packedCellVolume),
+                parseFloat(whiteBloodCellCount),
+                parseFloat(redBloodCells),
+                parseInt(hypertension, 10)
+            ];
+
+            const payload = { ic_number: icNumber, features };
+            console.log('Sending payload:', JSON.stringify(payload));
+
+            fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                if (data.prediction === 'Positive for CKD') {
+                    resultDiv.textContent = 'Prediction: Positive for CKD';
+                    resultDiv.style.color = 'red';
+                } else {
+                    resultDiv.textContent = 'Prediction: Negative for CKD';
+                    resultDiv.style.color = 'green';
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                const resultDiv = document.getElementById('result');
+                resultDiv.textContent = 'Error making prediction';
+                resultDiv.style.color = 'red';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const icNumber = urlParams.get('icNumber');
+
+    if (icNumber) {
+        document.getElementById('icNumber').value = icNumber; // Set the ICNumber value in the form
+    }
+});
+
+
+
+    </script>
+</body>
+</html>
