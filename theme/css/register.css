@@ -84,14 +84,24 @@ label {
     margin-top: 20px;
 }
 
-@media (min-width: 768px) {
-    .row > div[class*='col-'] {
-        display: flex;
-        flex-direction: column;
-    }
+/* Grid Styles for Form Sections */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
+.grid-container-single {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Responsive Styles */
 @media (max-width: 767px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
     .form-group {
         margin-bottom: 20px;
     }
