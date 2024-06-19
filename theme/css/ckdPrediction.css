@@ -103,3 +103,18 @@ footer {
     font-size: 20px;
     padding: 10px;
 }
+
+nav ul li button.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: underline;
+    padding: 0;
+}
+
+nav ul li button.logout-button:hover {
+    text-decoration: none;
+}
+

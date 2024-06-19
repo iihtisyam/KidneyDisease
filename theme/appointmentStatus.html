@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Status</title>
     <link rel="stylesheet" href="css/doctor-dashboard.css">
+   
 </head>
 <body>
     <header>
@@ -38,28 +39,77 @@
             </section>
         </div>
     </div>
+
+    <!-- The Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Are you sure you want to verify this appointment as done?</p>
+            <button class="modal-button confirm" id="confirmYes">Yes</button>
+            <button class="modal-button cancel" id="confirmCancel">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Appointment status has been updated successfully.</p>
+            <button class="modal-button confirm" id="successOk">OK</button>
+        </div>
+    </div>
     
     <script>
-       document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
             const appointmentID = urlParams.get('appointmentID');
+            const modal = document.getElementById('confirmationModal');
+            const successModal = document.getElementById('successModal');
+            const span = document.getElementsByClassName('close');
 
             if (appointmentID) {
                 fetchAppointmentDetails(appointmentID);
             }
 
-            // Move this inside the DOMContentLoaded event listener
             document.getElementById('verifyButton').addEventListener('click', function () {
-                if (confirm('Are you sure you want to verify this appointment as done?')) {
-                    verifyAppointmentDone(appointmentID);
-                }
+                modal.style.display = 'block';
+            });
+
+            document.getElementById('confirmYes').addEventListener('click', function () {
+                verifyAppointmentDone(appointmentID);
+                modal.style.display = 'none';
+                successModal.style.display = 'block';
+            });
+
+            document.getElementById('confirmCancel').addEventListener('click', function () {
+                modal.style.display = 'none';
             });
 
             document.getElementById('ckdPrediction').addEventListener('click', function () {
-               const icNumber = document.getElementById('patientICNumber').textContent; // Get the ICNumber from appointment details
-               window.location.href = `ckdPrediction.html?icNumber=${icNumber}`; // Redirect to ckdPrediction.html with ICNumber as URL parameter
-           });
+                const icNumber = document.getElementById('patientICNumber').textContent;
+                window.location.href = `prediction.html?icNumber=${icNumber}`;
+            });
 
+            for (let i = 0; i < span.length; i++) {
+                span[i].addEventListener('click', function () {
+                    modal.style.display = 'none';
+                    successModal.style.display = 'none';
+                });
+            }
+
+            document.getElementById('successOk').addEventListener('click', function () {
+                successModal.style.display = 'none';
+                window.location.href = 'doctor-dashboard.html';
+            });
+
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+                if (event.target == successModal) {
+                    successModal.style.display = 'none';
+                }
+            };
         });
 
         async function fetchAppointmentDetails(appointmentID) {
@@ -90,9 +140,6 @@
             } catch (error) {
                 console.error('Error fetching appointment details:', error);
             }
-
-         
-
         }
 
         async function verifyAppointmentDone(appointmentID) {
@@ -113,9 +160,6 @@
 
                 if (result.error) {
                     console.error('Error:', result.error);
-                } else {
-                    alert('Appointment status has been updated successfully.');
-                    window.location.href = 'doctor-dashboard.html'; // Redirect back to the dashboard
                 }
             } catch (error) {
                 console.error('Error updating appointment status:', error);

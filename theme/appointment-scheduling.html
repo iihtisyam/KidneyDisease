@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kidney Care Clinic - Appointment Scheduling</title>
     <link rel="stylesheet" href="css/appointment-scheduling.css">
 </head>
-
 <body>
     <header>
         <h1>Kidney Care Clinic</h1>
@@ -15,7 +13,7 @@
             <ul>
                 <li><a href="staff-dashboard.html">Home</a></li>
                 <li><a href="list-patients(staff).html">Patient Management</a></li>
-                <li><a href="appointment-scheduling.html">Appointment Scheduling</a></li>
+                <li><a href="appointment-scheduling.html">Appointment Scheduling <span id="unassignedCount">(0)</span></a></li>
                 <li><a href="report-generation.html">Report Generation</a></li>
                 <li><a href="page-login.html" id="logoutBtn">Logout</a></li>
             </ul>
@@ -34,6 +32,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             fetchAppointments();
+            updateUnassignedCount();
         });
 
         function fetchAppointments() {
@@ -80,17 +79,17 @@
             });
         }
 
-    function fetchAvailableDoctors(appointment) {
-        fetch('php/get-available-doctors.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                date: appointment.date,
-                startTime: appointment.startTime
+        function fetchAvailableDoctors(appointment) {
+            fetch('php/get-available-doctors.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: appointment.date,
+                    startTime: appointment.startTime
+                })
             })
-        })
             .then(response => {
                 if (!response.ok) {
                     return response.json().then(error => { throw new Error(error.error || 'Unknown error'); });
@@ -101,61 +100,107 @@
                 displayDoctorForm(appointment.appointmentID, data);
             })
             .catch(error => console.error('Error fetching doctors:', error));
-    }
+        }
 
-    function displayDoctorForm(appointmentId, doctors) {
+        function displayDoctorForm(appointmentId, doctors) {
             const formContainer = document.getElementById(`form-${appointmentId}`);
             formContainer.innerHTML = `
-        <h4>Assign a Doctor</h4>
-        <form id="assignDoctorForm-${appointmentId}">
-            <select id="doctorSelect-${appointmentId}">
-                ${doctors.map(doctor => `<option value="${doctor.doctorID}">${doctor.firstName} ${doctor.lastName}</option>`).join('')}
-            </select>
-            <button type="button" onclick="assignDoctor(${appointmentId})">Assign</button>
-        </form>
-    `;
+                <h4>Assign a Doctor</h4>
+                <form id="assignDoctorForm-${appointmentId}">
+                    <select id="doctorSelect-${appointmentId}">
+                        ${doctors.map(doctor => `<option value="${doctor.doctorID}">${doctor.firstName} ${doctor.lastName}</option>`).join('')}
+                    </select>
+                    <button type="button" onclick="assignDoctor(${appointmentId})">Assign</button>
+                </form>
+            `;
             formContainer.style.display = 'block';
         }
 
         function assignDoctor(appointmentId) {
-            const doctorId = document.getElementById(`doctorSelect-${appointmentId}`).value;
-            const staffData = JSON.parse(localStorage.getItem('staffData'));
-            const staffId = staffData.staffID;
-            const data = {
-                appointmentId: appointmentId,
-                doctorId: doctorId,
-                staffId: staffId
+                const doctorId = document.getElementById(`doctorSelect-${appointmentId}`).value;
+                const staffData = JSON.parse(localStorage.getItem('staffData'));
+                const staffId = staffData.staffID;
+                const data = {
+                    appointmentId: appointmentId,
+                    doctorId: doctorId,
+                    staffId: staffId
+                };
+
+                fetch('php/assign-doctor.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Handle success response
+                        console.log('Doctor assigned successfully:', data);
+                        showModal('Doctor assigned successfully.');
+                    })
+                    .catch(error => {
+                        console.error('Error assigning doctor:', error);
+                        alert('An error occurred. Please try again.');
+                    });
+            }
+
+
+        function updateUnassignedCount() {
+            fetch('php/get-unassigned-appointments-count.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.count !== undefined) {
+                        document.getElementById('unassignedCount').innerText = `(${data.count})`;
+                    } else {
+                        console.error('Invalid response format:', data);
+                    }
+                })
+                .catch(error => console.error('Error fetching unassigned appointments count:', error));
+        }
+
+        function showModal(message) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <p>${message}</p>
+                    <button id="okayBtn">Okay</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            const closeBtn = modal.querySelector('.close-btn');
+            const okayBtn = modal.querySelector('#okayBtn');
+
+            closeBtn.onclick = function () {
+                modal.remove();
+                window.location.reload();
+            };
+            okayBtn.onclick = function () {
+                modal.remove();
+                window.location.reload();
             };
 
-            fetch('php/assign-doctor.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Handle success response
-                    console.log('Doctor assigned successfully:', data);
-                    alert('Doctor assigned successfully.');
-                    document.getElementById(`form-${appointmentId}`).style.display = 'none';
-                })
-                .catch(error => {
-                    console.error('Error assigning doctor:', error);
-                    alert('An error occurred. Please try again.');
-                });
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.remove();
+                    window.location.reload();
+                }
+            };
         }
 
         document.getElementById('logoutBtn').addEventListener('click', function () {
             localStorage.clear();
         });
     </script>
-</body>
 
+   
+</body>
 </html>

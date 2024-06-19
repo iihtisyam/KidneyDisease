@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Care Clinic - CKD Prediction</title>
+    <link rel="stylesheet" href="css/ckdPrediction.css">
+</head>
+<body>
+    <header>
+        <h1>Kidney Care Clinic</h1>
+        <nav>
+            <ul>
+                <li><a href="doctor-dashboard.html">Home</a></li>
+                <li><a href="prediction.html">CKD Prediction</a></li>
+                <li><a href="doctor-dashboard.html#patients-list">Patients List</a></li>
+                <li><a href="doctor-dashboard.html#appointments">Appointments</a></li>
+                <li><button id="logoutButton" class="logout-button">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="content-body">
+            <div class="container">
+                <div>
+                    <h2>CKD Prediction Form</h2>
+                    <form id="ckdForm">
+                        <div class="form-group">
+                            <label for="icNumber">IC Number:</label>
+                            <input type="text" id="icNumber" name="icNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="specificGravity">Specific Gravity:</label>
+                            <input type="number" step="0.001" id="specificGravity" name="specificGravity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="albumin">Albumin:</label>
+                            <input type="number" id="albumin" name="albumin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serumCreatinine">Serum Creatinine:</label>
+                            <input type="number" step="0.01" id="serumCreatinine" name="serumCreatinine" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hemoglobin">Hemoglobin:</label>
+                            <input type="number" id="hemoglobin" name="hemoglobin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="packedCellVolume">Packed Cell Volume:</label>
+                            <input type="number" id="packedCellVolume" name="packedCellVolume" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whiteBloodCellCount">White Blood Cell Count:</label>
+                            <input type="number" id="whiteBloodCellCount" name="whiteBloodCellCount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="redBloodCellCount">Red Blood Cell Count:</label>
+                            <input type="number" id="redBloodCellCount" name="redBloodCellCount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hypertension">Hypertension:</label>
+                            <select id="hypertension" name="hypertension" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input type="number" id="age" name="age" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bloodPressure">Blood Pressure:</label>
+                            <input type="number" id="bloodPressure" name="bloodPressure" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bloodUrea">Blood Urea:</label>
+                            <input type="number" step="0.01" id="bloodUrea" name="bloodUrea" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sodium">Sodium:</label>
+                            <input type="number" step="0.01" id="sodium" name="sodium" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="potassium">Potassium:</label>
+                            <input type="number" step="0.01" id="potassium" name="potassium" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sugar">Sugar:</label>
+                            <input type="number" id="sugar" name="sugar" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="redBloodCells">Red Blood Cells:</label>
+                            <select id="redBloodCells" name="redBloodCells" required>
+                                <option value="1">Normal</option>
+                                <option value="0">Abnormal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pusCell">Pus Cell:</label>
+                            <select id="pusCell" name="pusCell" required>
+                                <option value="1">Normal</option>
+                                <option value="0">Abnormal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pusCellClumps">Pus Cell Clumps:</label>
+                            <select id="pusCellClumps" name="pusCellClumps" required>
+                                <option value="1">Present</option>
+                                <option value="0">Not Present</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bacteria">Bacteria:</label>
+                            <select id="bacteria" name="bacteria" required>
+                                <option value="1">Present</option>
+                                <option value="0">Not Present</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bloodGlucoseRandom">Blood Glucose Random:</label>
+                            <input type="number" step="0.01" id="bloodGlucoseRandom" name="bloodGlucoseRandom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coronaryArteryDisease">Coronary Artery Disease:</label>
+                            <select id="coronaryArteryDisease" name="coronaryArteryDisease" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="appetite">Appetite:</label>
+                            <select id="appetite" name="appetite" required>
+                                <option value="1">Good</option>
+                                <option value="0">Poor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pedalEdema">Pedal Edema:</label>
+                            <select id="pedalEdema" name="pedalEdema" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="anemia">Anemia:</label>
+                            <select id="anemia" name="anemia" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="diabetesMellitus">Diabetes Mellitus:</label>
+                            <select id="diabetesMellitus" name="diabetesMellitus" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="predictCKD()">Predict</button>
+                    </form>
+                </div>
+                <div id="result" style="font-size: 20px; padding: 10px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function predictCKD() {
+            const icNumber = document.getElementById('icNumber').value;
+            const specificGravity = parseFloat(document.getElementById('specificGravity').value);
+            const albumin = parseFloat(document.getElementById('albumin').value);
+            const serumCreatinine = parseFloat(document.getElementById('serumCreatinine').value);
+            const hemoglobin = parseFloat(document.getElementById('hemoglobin').value);
+            const packedCellVolume = parseFloat(document.getElementById('packedCellVolume').value);
+            const whiteBloodCellCount = parseFloat(document.getElementById('whiteBloodCellCount').value);
+            const redBloodCellCount = parseFloat(document.getElementById('redBloodCellCount').value);
+            const hypertension = parseInt(document.getElementById('hypertension').value, 10);
+            const age = parseInt(document.getElementById('age').value, 10);
+            const bloodPressure = parseFloat(document.getElementById('bloodPressure').value);
+            const bloodUrea = parseFloat(document.getElementById('bloodUrea').value);
+            const sodium = parseFloat(document.getElementById('sodium').value);
+            const potassium = parseFloat(document.getElementById('potassium').value);
+            const sugar = parseFloat(document.getElementById('sugar').value);
+            const redBloodCells = parseInt(document.getElementById('redBloodCells').value, 10);
+            const pusCell = parseInt(document.getElementById('pusCell').value, 10);
+            const pusCellClumps = parseInt(document.getElementById('pusCellClumps').value, 10);
+            const bacteria = parseInt(document.getElementById('bacteria').value, 10);
+            const bloodGlucoseRandom = parseFloat(document.getElementById('bloodGlucoseRandom').value);
+            const coronaryArteryDisease = parseInt(document.getElementById('coronaryArteryDisease').value, 10);
+            const appetite = parseInt(document.getElementById('appetite').value, 10);
+            const pedalEdema = parseInt(document.getElementById('pedalEdema').value, 10);
+            const anemia = parseInt(document.getElementById('anemia').value, 10);
+            const diabetesMellitus = parseInt(document.getElementById('diabetesMellitus').value, 10);
+
+            const features = [
+                specificGravity, albumin, serumCreatinine, hemoglobin, packedCellVolume, whiteBloodCellCount, redBloodCellCount, hypertension,
+                age, bloodPressure, bloodUrea, sodium, potassium, sugar, redBloodCells, pusCell, pusCellClumps, bacteria,
+                bloodGlucoseRandom, coronaryArteryDisease, appetite, pedalEdema, anemia, diabetesMellitus
+            ];
+
+            const payload = { ic_number: icNumber, features };
+            console.log('Sending payload:', JSON.stringify(payload));
+
+            fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                if (data.prediction === 'Positive for CKD') {
+                    resultDiv.textContent = 'Prediction: Positive for CKD';
+                    resultDiv.style.color = 'red';
+                } else {
+                    resultDiv.textContent = 'Prediction: Negative for CKD';
+                    resultDiv.style.color = 'green';
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                const resultDiv = document.getElementById('result');
+                resultDiv.textContent = 'Error making prediction';
+                resultDiv.style.color = 'red';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const icNumber = urlParams.get('icNumber');
+
+            if (icNumber) {
+                document.getElementById('icNumber').value = icNumber; // Set the ICNumber value in the form
+            }
+        });
+    </script>
+</body>
+</html>
